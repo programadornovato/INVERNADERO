@@ -1,0 +1,97 @@
+{
+  "version": 1,
+  "author": "Eugenio Chaparro - Programador Novato",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "chip-diode", "id": "diode1", "top": 173.82, "left": 196.8, "attrs": {} },
+    {
+      "type": "board-esp32-c5-devkitc-1",
+      "id": "esp",
+      "top": -4.31,
+      "left": -187.88,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "waterSwitch",
+      "top": -91.6,
+      "left": -304.1,
+      "attrs": { "value": "0" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r10k",
+      "top": -4.8,
+      "left": -278.95,
+      "rotate": 90,
+      "attrs": { "value": "10000" }
+    },
+    {
+      "type": "wokwi-relay-module",
+      "id": "relay",
+      "top": 57.8,
+      "left": -19.2,
+      "attrs": { "transistor": "npn" }
+    },
+    { "type": "chip-mini-water-pump", "id": "pump", "top": 49.02, "left": 254.4, "attrs": {} },
+    {
+      "type": "wokwi-text",
+      "id": "title",
+      "top": -230.4,
+      "left": -259.2,
+      "attrs": { "text": "DESTILADOR - XIAO ESP32-C5" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "sensorNote",
+      "top": -144,
+      "left": -345.6,
+      "attrs": { "text": "SIMULA XKC-Y25-V" }
+    },
+    { "type": "chip-capacitor10uf", "id": "capacitor1", "top": 212.22, "left": 168, "attrs": {} },
+    {
+      "type": "wokwi-text",
+      "id": "capacitorNote",
+      "top": 254,
+      "left": -44,
+      "attrs": { "text": "10 uF - SOLO REPRESENTACION" }
+    },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "soil",
+      "top": -134.4,
+      "left": -172.8,
+      "rotate": 180,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-text",
+      "id": "soilNote",
+      "top": -172.8,
+      "left": -172.8,
+      "attrs": { "text": "SIMULA YL-69 (HUMEDAD TIERRA)" }
+    }
+  ],
+  "connections": [
+    [ "esp:5V", "waterSwitch:1", "#8f4814", [ "h-115.2" ] ],
+    [ "esp:GND.1", "waterSwitch:3", "blue", [] ],
+    [ "waterSwitch:2", "r10k:1", "yellow", [ "v19.2", "h38.5" ] ],
+    [ "esp:5V", "relay:VCC", "red", [ "h-48", "v-192", "h172.8", "v115.2" ] ],
+    [ "esp:GND.1", "relay:GND", "black", [ "h-28.8", "v96", "h172.8", "v-172.4" ] ],
+    [ "esp:5V", "relay:COM", "red", [ "h-48", "v86.4", "h355.2", "v-152.2" ] ],
+    [ "relay:NO", "pump:VCC", "orange", [ "h49.2", "v-49.8" ] ],
+    [ "pump:GND", "esp:GND.1", "black", [ "v211.2", "h-508.8", "v-115.2" ] ],
+    [ "r10k:2", "esp:GND.1", "black", [ "v133.2" ] ],
+    [ "esp:0", "r10k:2", "green", [ "h-57.6", "v-37.2" ] ],
+    [ "relay:IN", "esp:23", "violet", [ "v134.2", "h-67.2", "v-163.2" ] ],
+    [ "diode1:CATHODE", "pump:VCC", "red", [ "h-9.6", "v-134.4" ] ],
+    [ "diode1:ANODE", "pump:GND", "black", [ "h28.8", "v-48", "h38.4", "v-67.2" ] ],
+    [ "esp:GND.1", "capacitor1:MINUS", "black", [ "h-86.4", "v144", "h441.6" ] ],
+    [ "capacitor1:PLUS", "pump:VCC", "red", [ "h-9.6", "v-163.2" ] ],
+    [ "soil:VCC", "esp:3V3", "red", [ "v-9.6", "h-55.39", "v165.71" ] ],
+    [ "soil:GND", "esp:GND.4", "black", [ "v-9.6", "h39.81", "v165.71" ] ],
+    [ "soil:SIG", "esp:4", "blue", [ "v-19.2", "h59.41", "v242.51" ] ]
+  ],
+  "serialMonitor": { "display": "always", "newline": "lf" },
+  "dependencies": { "chip-diode": "github:drf5n/Wokwi-Chip-Diode@1.0.0" }
+}
